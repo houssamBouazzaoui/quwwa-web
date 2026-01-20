@@ -1,9 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
     <meta charset="utf-8" />
     <title>Quwwa</title>
-    <meta http-equiv="refresh" content="0; url=/" />
+    <script>
+      // Save the original path before redirecting
+      sessionStorage.redirect = location.pathname + location.search + location.hash;
+
+      // Redirect to the SPA entry point
+      location.replace('/');
+    </script>
   </head>
   <body></body>
 </html>
