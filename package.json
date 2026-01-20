@@ -1,13 +1,12 @@
 {
-  "name": "templates",
+  "name": "quwwa-web",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "build:cf": "ng build && node -e \"const fs=require('fs');const path=require('path');const src=path.join('dist','templates','browser');const dst=path.join('dist','templates');if(fs.existsSync(src)){for(const f of fs.readdirSync(src)){fs.cpSync(path.join(src,f),path.join(dst,f),{recursive:true});}}\""
+    "test": "ng test"
   },
   "prettier": {
     "printWidth": 100,

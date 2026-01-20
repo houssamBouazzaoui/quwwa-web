@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "templates": {
+    "quwwaWeb": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -16,7 +16,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/templates",
+            "outputPath": "dist/quwwaWeb",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
@@ -55,10 +55,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "templates:build:production"
+              "buildTarget": "quwwaWeb:build:production"
             },
             "development": {
-              "buildTarget": "templates:build:development"
+              "buildTarget": "quwwaWeb:build:development"
             }
           },
           "defaultConfiguration": "development"
