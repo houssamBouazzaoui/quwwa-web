@@ -13,4 +13,14 @@ export class ApiClient {
   healthDb(): Observable<{ status: string }> {
     return this.http.get<{ status: string }>(`${this.config.baseUrl}/health/db`);
   }
+
+  version() {
+    return this.http.get<{
+      name: string;
+      env: string;
+      version: string | null;
+      commit: string | null;
+      builtAt: string | null;
+    }>(`${this.config.baseUrl}/meta/version`);
+  }
 }

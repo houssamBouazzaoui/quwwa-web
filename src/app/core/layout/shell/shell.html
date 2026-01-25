@@ -12,6 +12,16 @@
       }
     </div>
 
+    @if (s.status === 'ok') {
+      <div class="mt-2 text-xs opacity-80">
+        <div><span class="font-semibold">name:</span> {{ s.meta.name }}</div>
+        <div><span class="font-semibold">env:</span> {{ s.meta.env }}</div>
+        <div><span class="font-semibold">version:</span> {{ s.meta.version ?? '—' }}</div>
+        <div><span class="font-semibold">commit:</span> {{ s.meta.commit ?? '—' }}</div>
+        <div><span class="font-semibold">builtAt:</span> {{ s.meta.builtAt ?? '—' }}</div>
+      </div>
+    }
+
     @if (s.status === 'error') {
       <pre class="mt-2 whitespace-pre-wrap rounded border p-2 text-sm">{{ s.error }}</pre>
     }
