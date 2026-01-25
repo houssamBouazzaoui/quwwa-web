@@ -1,22 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApiClient } from '../../api/api-client.service';
 
-import { ShellComponent } from './shell';
+@Component({
+  selector: 'app-shell',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './shell.html',
+  styleUrl: './shell.css',
+})
+export class Shell implements OnInit {
+  apiStatus: 'idle' | 'ok' | 'error' = 'idle';
+  apiError: string | null = null;
 
-describe('Shell', () => {
-  let component: ShellComponent;
-  let fixture: ComponentFixture<ShellComponent>;
+  constructor(private readonly api: ApiClient) {}
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShellComponent],
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(ShellComponent);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+  ngOnInit(): void {
+    this.api.healthDb().subscribe({
+      next: () => {
+        this.apiStatus = 'ok';
+        this.apiError = null;
+      },
+      error: (err) => {
+        this.apiStatus = 'error';
+        this.apiError = err?.message ?? (typeof err === 'string' ? err : JSON.stringify(err));
+      },
+    });
+  }
+}

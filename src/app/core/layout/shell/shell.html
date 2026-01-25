@@ -1,59 +1,21 @@
-<header class="fixed inset-x-0 top-0 z-50 border-b border-black/10 bg-white">
-  <nav class="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
-    <!-- Brand -->
-    <a href="#home" class="text-sm font-semibold text-black">Company</a>
+<div class="p-3">
+  <div class="flex items-center gap-2">
+    <span class="font-semibold">API:</span>
 
-    <!-- Desktop links -->
-    <div class="hidden items-center gap-6 text-sm sm:flex">
-      <a class="text-black/70 hover:text-black" href="#home">Home</a>
-      <a class="text-black/70 hover:text-black" href="#services">Services</a>
-      <a class="text-black/70 hover:text-black" href="#templates">Templates</a>
-      <a class="text-black/70 hover:text-black" href="#contact">Contact</a>
-    </div>
+    @if (apiStatus === 'idle') {
+      <span class="text-sm opacity-80">checking…</span>
+    } @else if (apiStatus === 'ok') {
+      <span class="text-sm">OK ✅</span>
+    } @else {
+      <span class="text-sm">ERROR ❌</span>
+    }
+  </div>
 
-    <!-- Mobile button -->
-    <button
-      type="button"
-      class="sm:hidden rounded-lg border border-black/10 bg-white px-3 py-2 text-black hover:bg-neutral-50"
-      (click)="toggleMenu()"
-      aria-label="Open menu"
-      [attr.aria-expanded]="open"
-    >
-      ☰
-    </button>
-  </nav>
-
-  <!-- Mobile dropdown (pushes down under the bar) -->
-  @if (open) {
-    <div class="border-t border-black/10 bg-white sm:hidden">
-      <div class="mx-auto max-w-6xl px-4 py-2 sm:px-6">
-        <a
-          (click)="closeMenu()"
-          class="block rounded-lg px-3 py-2 text-sm text-black hover:bg-black/5"
-          href="#home"
-          >Home</a
-        >
-        <a
-          (click)="closeMenu()"
-          class="block rounded-lg px-3 py-2 text-sm text-black hover:bg-black/5"
-          href="#services"
-          >Services</a
-        >
-        <a
-          (click)="closeMenu()"
-          class="block rounded-lg px-3 py-2 text-sm text-black hover:bg-black/5"
-          href="#templates"
-          >Templates</a
-        >
-        <a
-          (click)="closeMenu()"
-          class="block rounded-lg px-3 py-2 text-sm text-black hover:bg-black/5"
-          href="#contact"
-          >Contact</a
-        >
-      </div>
-    </div>
+  @if (apiError) {
+    <pre class="mt-2 whitespace-pre-wrap rounded-lg border p-2 text-sm"
+      >{{ apiError }}
+    </pre>
   }
-</header>
 
-<router-outlet />
+  <!-- your existing shell content below -->
+</div>

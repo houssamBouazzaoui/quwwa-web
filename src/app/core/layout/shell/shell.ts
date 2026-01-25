@@ -1,29 +1,30 @@
-import { Component, OnDestroy, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { ApiClient } from '../../api/api-client.service';
 
 @Component({
   selector: 'app-shell',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [CommonModule],
   templateUrl: './shell.html',
+  styleUrl: './shell.css',
 })
-export class ShellComponent implements OnDestroy {
-  private document = inject(DOCUMENT);
+export class Shell implements OnInit {
+  apiStatus: 'idle' | 'ok' | 'error' = 'idle';
+  apiError: string | null = null;
 
-  open = false;
+  constructor(private readonly api: ApiClient) {}
 
-  toggleMenu() {
-    this.open = !this.open;
-    this.document.body.classList.toggle('no-scroll', this.open);
-  }
-
-  closeMenu() {
-    this.open = false;
-    this.document.body.classList.remove('no-scroll');
-  }
-
-  ngOnDestroy(): void {
-    this.document.body.classList.remove('no-scroll');
+  ngOnInit(): void {
+    this.api.healthDb().subscribe({
+      next: () => {
+        this.apiStatus = 'ok';
+        this.apiError = null;
+      },
+      error: (err) => {
+        this.apiStatus = 'error';
+        this.apiError = err?.message ?? (typeof err === 'string' ? err : JSON.stringify(err));
+      },
+    });
   }
 }
