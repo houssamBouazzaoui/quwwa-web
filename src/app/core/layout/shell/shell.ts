@@ -17,11 +17,13 @@ export class Shell implements OnInit {
 
   ngOnInit(): void {
     this.api.healthDb().subscribe({
-      next: () => {
+      next: (res) => {
+        console.log('healthDb ok:', res);
         this.apiStatus = 'ok';
         this.apiError = null;
       },
       error: (err) => {
+        console.log('healthDb error:', err);
         this.apiStatus = 'error';
         this.apiError = err?.message ?? (typeof err === 'string' ? err : JSON.stringify(err));
       },
